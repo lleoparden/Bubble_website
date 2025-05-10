@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble - Modern Chat App</title>
+    <style>
+        :root {
+            --primary-color: #9BA8DD;
+            --secondary-color: #665695;
+            --bg-color: #F2F2FF;
+            --text-color: #665695;
+            --button-color: #9BA8DD;
+            --button-hover: #ABB5E8;
+            --header-bg: #D2D2EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--button-color);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--button-hover);
+        }
+
+        .content {
+            padding-top: 120px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--button-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+        }
+
+        .features {
+            margin-bottom: 4rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--button-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .cta {
+            background-color: var(--header-bg);
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            margin: 0 1rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+        }
+
+        /* Download Page Styles */
+        .download-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .download-icon {
+            width: 100px;
+            height: 100px;
+            background-color: var(--button-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 2rem;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .version-info {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .version-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Terms & Privacy Page Styles */
+        .legal-content {
+            background-color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .legal-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .legal-content ul, .legal-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile Responsiveness */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                background-color: var(--header-bg);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                z-index: 99;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+            }
+
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-text {
+                padding-right: 0;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .legal-content {
+                padding: 2rem;
+            }
+        }
+
+        /* Dark mode toggle button */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--button-color);
+            color: white;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --primary-color: #B6B6FF;
+            --secondary-color: #E0E0FF;
+            --bg-color: #2B2B2B;
+            --text-color: #E0E0FF;
+            --button-color: #B6B6FF;
+            --button-hover: #ABB5E8;
+            --header-bg: #212121;
+        }
+
+        body.dark-mode .feature-card {
+            background-color: #333;
+        }
+
+        body.dark-mode .download-card,
+        body.dark-mode .legal-content {
+            background-color: #333;
+        }
+
+        body.dark-mode .version-info {
+            background-color: #222;
+        }
+
+        #home-content, #download-content, #terms-content, #privacy-content {
+            display: none;
+        }
+
+        .active-content {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <div class="logo-icon">B</div>
+                Bubble
+            </a>
+            <div style="display: flex; align-items: center;">
+                <nav>
+                    <ul id="menu">
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('download')">Download</a></li>
+                        <li><a href="#" onclick="showPage('terms')">Terms of Service</a></li>
+                        <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
+                    </ul>
+                </nav>
+                <div class="theme-toggle" id="theme-toggle">🌙</div>
+                <div class="hamburger" id="hamburger">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container content">
+        <!-- Home Page Content -->
+        <div id="home-content" class="active-content">
+            <section class="hero">
+                <div class="hero-text">
+                    <h1>Connect with Bubble</h1>
+                    <p>A modern, secure, and beautiful chat application designed to keep you connected with the people who matter most. Built with Kotlin and Firebase for a seamless experience across all Android devices.</p>
+                    <a href="#" class="btn" onclick="showPage('download')">Download Now</a>
+                </div>
+                <div class="hero-image">
+                    <img src="/api/placeholder/400/320" alt="Bubble App Interface" />
+                </div>
+            </section>
+
+            <section class="features">
+                <h2>Why Choose Bubble?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">Secure Messaging</h3>
+                        <p>Your conversations are protected with end-to-end encryption, ensuring your privacy at all times.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3 class="feature-title">Beautiful Design</h3>
+                        <p>A clean, intuitive interface with light and dark mode options for comfortable chatting day and night.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Lightning Fast</h3>
+                        <p>Built with performance in mind, Bubble delivers your messages instantly with real-time updates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3 class="feature-title">Seamless Sync</h3>
+                        <p>Your messages sync automatically across all your devices, so you never miss a conversation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h3 class="feature-title">Interactive Features</h3>
+                        <p>Share media, create group chats, and express yourself with a wide range of emojis and reactions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">Global Connections</h3>
+                        <p>Connect with friends and family worldwide with minimal data usage and optimal efficiency.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta">
+                <h2>Ready to start bubbling?</h2>
+                <p>Join millions of users who trust Bubble for their daily conversations.</p>
+                <a href="#" class="btn" onclick="showPage('download')">Get Bubble Now</a>
+            </section>
+        </div>
+
+        <!-- Download Page Content -->
+        <div id="download-content">
+            <h2>Download Bubble</h2>
+            <div class="download-card">
+                <div class="download-icon">📱</div>
+                <h3>Bubble Chat App</h3>
+                <div class="version-info">
+                    <p><strong>Version:</strong> 1.2.0</p>
+                    <p><strong>Size:</strong> 18.5 MB</p>
+                    <p><strong>Last Updated:</strong> May 5, 2025</p>
+                    <p><strong>Requires:</strong> Android 6.0 and up</p>
+                </div>
+                <p>Download the latest version of Bubble and start connecting with friends and family in a secure, beautiful environment.</p>
+                <a href="bubble_app.apk" class="btn" id="download-btn">Download APK</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">By downloading, you agree to our <a href="#" onclick="showPage('terms')">Terms of Service</a> and <a href="#" onclick="showPage('privacy')">Privacy Policy</a>.</p>
+            </div>
+            
+            <h3>Installation Instructions</h3>
+            <ol>
+                <li>Download the APK file to your Android device</li>
+                <li>Open the APK file on your device</li>
+                <li>If prompted, enable installation from unknown sources in your device settings</li>
+                <li>Follow the on-screen instructions to complete the installation</li>
+                <li>Open Bubble and create your account to get started</li>
+            </ol>
+        </div>
+
+        <!-- Terms of Service Content -->
+        <div id="terms-content">
+            <h2>Terms of Service</h2>
+            <div class="legal-content">
+                <p>Last Updated: May 10, 2025</p>
+                
+                <h3>1. Acceptance of Terms</h3>
+                <p>Welcome to Bubble! These Terms of Service ("Terms") govern your access to and use of the Bubble mobile application ("App"), including any updates, features, content, and services offered by Bubble. By downloading, installing, or using our App, you agree to be bound by these Terms. If you do not agree with these Terms, please do not download, install, or use the App.</p>
+                
+                <h3>2. Changes to Terms</h3>
+                <p>We may modify these Terms at any time. We will notify you of any changes through the App or by other means. Your continued use of the App after such notification constitutes your acceptance of the modified Terms.</p>
+                
+                <h3>3. Privacy Policy</h3>
+                <p>Your privacy is important to us. Our Privacy Policy describes how we collect, use, and disclose information about you. By using Bubble, you consent to the collection and use of information as detailed in our Privacy Policy.</p>
+                
+                <h3>4. User Accounts</h3>
+                <p>To use certain features of the App, you must create an account. You are responsible for:</p>
+                <ul>
+                    <li>Providing accurate and complete information</li>
+                    <li>Maintaining the security of your account credentials</li>
+                    <li>All activities that occur under your account</li>
+                    <li>Notifying us immediately of any unauthorized use of your account</li>
+                </ul>
+                
+                <h3>5. Acceptable Use</h3>
+                <p>You agree not to use the App to:</p>
+                <ul>
+                    <li>Violate any applicable laws or regulations</li>
+                    <li>Infringe upon the rights of others</li>
+                    <li>Send spam or unsolicited messages</li>
+                    <li>Distribute malware or other harmful code</li>
+                    <li>Attempt to gain unauthorized access to any part of the App</li>
+                    <li>Harass, abuse, or harm another person</li>
+                    <li>Distribute obscene, offensive, or illegal content</li>
+                </ul>
+                
+                <h3>6. User Content</h3>
+                <p>You retain ownership of any content you create or share through the App ("User Content"). By posting User Content, you grant us a non-exclusive, transferable, sub-licensable, royalty-free, worldwide license to use, modify, publicly display, and distribute such User Content on and through the App.</p>
+                
+                <h3>7. Intellectual Property</h3>
+                <p>The App and its original content, features, and functionality are owned by Bubble and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws. You may not copy, modify, distribute, sell, or lease any part of our App or included software.</p>
+                
+                <h3>8. Termination</h3>
+                <p>We may suspend or terminate your access to the App at any time for any reason, including if we believe you have violated these Terms. Upon termination, your right to use the App will immediately cease.</p>
+                
+                <h3>9. Disclaimer of Warranties</h3>
+                <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED OR ERROR-FREE.</p>
+                
+                <h3>10. Limitation of Liability</h3>
+                <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BUBBLE BE LIABLE FOR ANY INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER ARISING OUT OF OR CONNECTED WITH THE USE OR INABILITY TO USE THE APP.</p>
+                
+                <h3>11. Indemnification</h3>
+                <p>You agree to indemnify and hold harmless Bubble from any claims, losses, damages, liabilities, including legal fees, arising out of your use or misuse of the App, your User Content, or your violation of these Terms.</p>
+                
+                <h3>12. Governing Law</h3>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Bubble operates, without regard to its conflict of law provisions.</p>
+                
+                <h3>13. Contact Us</h3>
+                <p>If you have any questions about these Terms, please contact us at terms@bubbleapp.com.</p>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Content -->
+        <div id="privacy-content">
+            <h2>Privacy Policy</h2>
+            <div class="legal-content">
+                <p>Last Updated: May 10, 2025</p>
+                
+                <h3>1. Introduction</h3>
+                <p>At Bubble, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application. Please read this policy carefully to understand our practices regarding your personal data.</p>
+                
+                <h3>2. Information We Collect</h3>
+                <p><strong>Personal Information:</strong> When you create an account, we collect information such as your name, email address, phone number, and profile picture.</p>
+                <p><strong>Usage Data:</strong> We automatically collect information about how you use the App, including your interactions, chat frequency, and features used.</p>
+                <p><strong>Device Information:</strong> We collect information about your device, including device model, operating system, unique device identifiers, and mobile network information.</p>
+                <p><strong>Content:</strong> We collect the content of messages you send and receive through the App for delivery purposes.</p>
+                
+                <h3>3. How We Use Your Information</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide, maintain, and improve the App</li>
+                    <li>Create and manage your account</li>
+                    <li>Process and deliver your messages</li>
+                    <li>Respond to your comments, questions, and requests</li>
+                    <li>Send you technical notices and updates</li>
+                    <li>Monitor and analyze trends and usage</li>
+                    <li>Detect, investigate, and prevent security incidents</li>
+                    <li>Personalize your experience</li>
+                </ul>
+                
+                <h3>4. Message Encryption and Privacy</h3>
+                <p>Bubble uses end-to-end encryption for messages. This means that your messages are encrypted when sent from your device and can only be decrypted by the intended recipient's device. We cannot access or read the content of your encrypted messages.</p>
+                
+                <h3>5. Information Sharing</h3>
+                <p>We may share your information with:</p>
+                <ul>
+                    <li><strong>Service Providers:</strong> Third-party vendors who help us operate the App</li>
+                    <li><strong>Legal Requirements:</strong> When required by law or legal process</li>
+                    <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+                    <li><strong>With Your Consent:</strong> When you have explicitly consented to the sharing</li>
+                </ul>
+                <p>We do not sell your personal information to third parties.</p>
+                
+                <h3>6. Data Retention</h3>
+                <p>We retain your personal information for as long as necessary to fulfill the purposes described in this Privacy Policy, unless a longer retention period is required by law. Undelivered messages are stored on our servers for up to 30 days before being deleted.</p>
+                
+                <h3>7. Data Security</h3>
+                <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security.</p>
+                
+                <h3>8. Your Rights</h3>
+                <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+                <ul>
+                    <li>Access to your personal information</li>
+                    <li>Correction of inaccurate information</li>
+                    <li>Deletion of your information</li>
+                    <li>Restriction or objection to processing</li>
+                    <li>Data portability</li>
+                    <li>Withdrawal of consent</li>
+                </ul>
+                <p>To exercise these rights, please contact us at privacy@bubbleapp.com.</p>
+                
+                <h3>9. Children's Privacy</h3>
+                <p>The App is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us.</p>
+                
+                <h3>10. Changes to This Privacy Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+                
+                <h3>11. International Data Transfers</h3>
+                <p>Your information may be transferred to, and processed in, countries other than the country in which you reside. These countries may have different data protection laws. By using the App, you consent to this transfer, storing, or processing.</p>
+                
+                <h3>12. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                <p>privacy@bubbleapp.com</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('download')">Download</a>
+                <a href="#" onclick="showPage('terms')">Terms of Service</a>
+                <a href="#" onclick="showPage('privacy')">Privacy Policy</a>
+            </div>
+            <p class="copyright">© 2025 Bubble Chat App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageName) {
+            // Hide all content sections
+            document.querySelectorAll('.content > div').forEach(section => {
+                section.classList.remove('active-content');
+            });
+            
+            // Show the selected content section
+            document.getElementById(pageName + '-content').classList.add('active-content');
+            
+            // Close mobile menu if open
+            document.getElementById('menu').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('menu').classList.toggle('active');
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '☀️';
+            } else {
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Download button click tracking
+        document.getElementById('download-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Log download attempt
+            console.log('Download started at: ' + new Date().toString());
+            
+            // Simulate download
+            alert('Download started! If this were a real app, the APK download would begin now.');
+            
+            // In a real scenario, you would redirect to the actual APK file:
+            // window.location.href = 'bubble_app.apk';
+        });
+
+        // Initialize the page based on hash or default to home
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && ['home', 'download', 'terms', 'privacy'].includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        });
+    </script>
+</body>
+</html>
