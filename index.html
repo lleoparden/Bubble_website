@@ -70,7 +70,16 @@
             align-items: center;
             color: white;
             font-size: 1.5rem;
+            overflow: hidden; /* ensures the image doesn't spill out of the circle */
         }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* maintains aspect ratio and fills the container */
+            border-radius: 50%; /* optional, makes sure image conforms to circle shape */
+        }
+
 
         nav ul {
             display: flex;
@@ -255,7 +264,16 @@
             margin: 0 auto 2rem;
             color: white;
             font-size: 3rem;
+            overflow: hidden;
         }
+
+        .download-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* maintains aspect ratio and fills the container */
+            border-radius: 50%; /* optional, makes sure image conforms to circle shape */
+        }
+       
 
         .version-info {
             background-color: var(--bg-color);
@@ -403,7 +421,7 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo" onclick="showPage('home')">
-                <div class="logo-icon">B</div>
+                <div class="logo-icon"><img src="logo.png" alt="Bubble App Logo" class="hero-image"></div>
                 Bubble
             </a>
             <div style="display: flex; align-items: center;">
@@ -426,12 +444,9 @@
         <div id="home-content" class="active-content">
             <section class="hero">
                 <div class="hero-text">
-                    <h1>Connect with Bubble</h1>
-                    <p>A modern, secure, and beautiful chat application designed to keep you connected with the people who matter most. Built with Kotlin and Firebase for a seamless experience across all Android devices.</p>
-                    <a href="#" class="btn" onclick="showPage('download')">Download Now</a>
-                </div>
-                <div class="hero-image">
-                    <img src="/api/placeholder/400/320" alt="app logo" />
+                        <h1>Connect with Bubble</h1>
+                        <p>A modern, secure, and beautiful chat application designed to keep you connected with the people who matter most. Built with Kotlin and Firebase for a seamless experience across all Android devices.</p>
+                        <a href="#" class="btn" onclick="showPage('download')">Download Now</a>
                 </div>
             </section>
 
@@ -482,13 +497,13 @@
         <div id="download-content">
             <h2>Download Bubble</h2>
             <div class="download-card">
-                <div class="download-icon">📱</div>
-                <h3>Bubble Chat App</h3>
+                <div class="download-icon"><img src="logo.png" alt="Bubble App Logo" class="hero-image"></div>
+                <h1>Bubble Chat App</h1>
                 <div class="version-info">
-                    <p><strong>Version:</strong> 1.2.0</p>
-                    <p><strong>Size:</strong> 18.5 MB</p>
-                    <p><strong>Last Updated:</strong> May 5, 2025</p>
-                    <p><strong>Requires:</strong> Android 6.0 and up</p>
+                    <p><strong>Version:</strong> 4.2.0</p>
+                    <p><strong>Size:</strong> 25.9 MB</p>
+                    <p><strong>Last Updated:</strong> May 16, 2025</p>
+                    <p><strong>Requires:</strong> Android 11.0 and up</p>
                 </div>
                 <p>Download the latest version of Bubble and start connecting with friends and family in a secure, beautiful environment.</p>
                 <a href="bubble_app.apk" class="btn" id="download-btn">Download APK</a>
@@ -698,11 +713,8 @@
             // Log download attempt
             console.log('Download started at: ' + new Date().toString());
             
-            // Simulate download
-            alert('Download started! If this were a real app, the APK download would begin now.');
-            
             // In a real scenario, you would redirect to the actual APK file:
-            // window.location.href = 'bubble_app.apk';
+            window.location.href = 'bubble_app.apk';
         });
 
         // Initialize the page based on hash or default to home
@@ -717,3 +729,9 @@
     </script>
 </body>
 </html>
+
+
+
+
+<!-- CREATED by lleoparden -->
+ <!--https://bit.ly/Lleoparden-->
